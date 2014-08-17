@@ -63,7 +63,9 @@ if Chef::Config[:solo]
 else
   munin_servers = []
   if node['munin']['multi_environment_monitoring']
-    if node['munin']['multi_environment_monitoring'].kind_of?(Array)
+    if node['munin']['opsworks_enabled']
+      munin_servers = search(:node, node['munin']['opsworks_layer'])
+    elsif node['munin']['multi_environment_monitoring'].kind_of?(Array)
       node['munin']['multi_environment_monitoring'].each do |searchenv|
         search(:node, "munin:[* TO *] AND chef_environment:#{searchenv}").each do |n|
           munin_servers << n

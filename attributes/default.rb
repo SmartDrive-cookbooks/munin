@@ -28,6 +28,8 @@ default['munin']['web_server_port'] = 80
 default['munin']['public_domain'] = nil
 
 default['munin']['data_bag'] = 'users'
+default['munin']['opsworks_enabled'] = false
+default['munin']['opsworks_layer'] = '*:*'
 
 case node['platform']
 when 'arch'
