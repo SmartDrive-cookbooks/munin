@@ -51,10 +51,11 @@ end
 include_recipe 'munin::client'
 
 sysadmins = []
+data_bag = node['munin']['data_bag']
 if Chef::Config[:solo]
-  sysadmins = data_bag('users').map { |user| data_bag_item('users', user) }
+  sysadmins = data_bag(data_bag).map { |user| data_bag_item(data_bag, user) }
 else
-  sysadmins = search(:users, 'groups:sysadmin')
+  sysadmins = search(data_bag, 'groups:sysadmin')
 end
 
 if Chef::Config[:solo]
